@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shakib Hasan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            height: 100vh;
+            perspective: 1000px;
+        }
+
+        /* Cover Page */
+        .cover-container {
+            position: fixed; /* Changed to fixed for smooth transition */
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+            overflow: hidden;
+            z-index: 10; /* Lower than transition elements */
+            transition: opacity 0.5s ease;
+        }
+
+        /* Background Animation */
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: url('/api/placeholder/400/320') center/cover no-repeat;
+            background-color: #020c1b; /* Darker blue background */
+            opacity: 1;
+            overflow: hidden;
+        }
+        
+        /* Tech Background Elements */
+        .tech-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(13, 39, 80, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(13, 39, 80, 0.2) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.5;
+        }
+        
+        /* Enhanced Circuit Lines Animation */
+        .circuit-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .circuit-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(0, 120, 200, 0.4), transparent); /* Darker blue gradient */
+            height: 2px;
+            width: 100%;
+            animation: circuitMove 8s infinite linear;
+            opacity: 0;
+            box-shadow: 0 0 8px rgba(0, 100, 170, 0.6); /* Darker glow */
+        }
+        
+        .circuit-line:nth-child(1) {
+            top: 15%;
+            animation-duration: 7s;
+            animation-delay: 0s;
+        }
+        
+        .circuit-line:nth-child(2) {
+            top: 25%;
+            animation-duration: 10s;
+            animation-delay: 1s;
+        }
+        
+        .circuit-line:nth-child(3) {
+            top: 35%;
+            animation-duration: 12s;
+            animation-delay: 2s;
+        }
+        
+        .circuit-line:nth-child(4) {
+            top: 45%;
+            animation-duration: 9s;
+            animation-delay: 3s;
+        }
+        
+        .circuit-line:nth-child(5) {
+            top: 55%;
+            animation-duration: 11s;
+            animation-delay: 4s;
+        }
+        
+        .circuit-line:nth-child(6) {
+            top: 65%;
+            animation-duration: 8s;
+            animation-delay: 5s;
+        }
+        
+        .circuit-line:nth-child(7) {
+            top: 75%;
+            animation-duration: 13s;
+            animation-delay: 6s;
+        }
+        
+        .circuit-line:nth-child(8) {
+            top: 85%;
+            animation-duration: 7s;
+            animation-delay: 7s;
+        }
+        
+        .circuit-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: rgba(0, 120, 200, 0.6); /* Darker blue dot */
+            box-shadow: 0 0 10px rgba(0, 100, 170, 0.6); /* Darker glow */
+            animation: pulse 4s infinite;
+        }
+        
+        .circuit-dot:nth-child(9) {
+            top: 20%;
+            left: 30%;
+            animation-delay: 0s;
+        }
+        
+        .circuit-dot:nth-child(10) {
+            top: 70%;
+            left: 60%;
+            animation-delay: 1s;
+        }
+        
+        .circuit-dot:nth-child(11) {
+            top: 40%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+        
+        .circuit-dot:nth-child(12) {
+            top: 60%;
+            left: 20%;
+            animation-delay: 3s;
+        }
+        
+        .circuit-dot:nth-child(13) {
+            top: 30%;
+            left: 50%;
+            animation-delay: 2.5s;
+        }
+        
+        .circuit-dot:nth-child(14) {
+            top: 80%;
+            left: 40%;
+            animation-delay: 3.5s;
+        }
+        
+        .circuit-branch {
+            position: absolute;
+            background: rgba(0, 100, 170, 0.35); /* Darker blue branch */
+            height: 1px;
+            animation: fadeInOut 5s infinite;
+            box-shadow: 0 0 5px rgba(0, 100, 170, 0.5); /* Darker glow */
+        }
+        
+        .circuit-branch:nth-child(15) {
+            top: 25%;
+            left: 40%;
+            width: 100px;
+            transform: rotate(45deg);
+            animation-delay: 0.5s;
+        }
+        
+        .circuit-branch:nth-child(16) {
+            top: 65%;
+            left: 60%;
+            width: 120px;
+            transform: rotate(-30deg);
+            animation-delay: 1.5s;
+        }
+        
+        .circuit-branch:nth-child(17) {
+            top: 45%;
+            left: 25%;
+            width: 80px;
+            transform: rotate(60deg);
+            animation-delay: 2.5s;
+        }
+        
+        /* Content Styles */
+        .cover-logo {
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            position: relative;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .cover-title {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #3B38B3, #7E42BC, #B93674); /* Darker gradient colors */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cover-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            max-width: 650px;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            line-height: 1.5;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            opacity: 0.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .scroll-hint i {
+            margin-top: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Index Page Container (iframe approach) */
+        .index-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5; /* Between cover and transition circle */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.7s ease; /* More balanced fade-in */
+        }
+        
+        .index-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Circle Reveal Effect */
+        .reveal-circle {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 10px;
+            height: 10px;
+            background-color: transparent;
+            border-radius: 50%;
+            z-index: 15; /* Above everything */
+            box-shadow: 0 0 30px rgba(0, 100, 170, 0.6);
+            transition: transform 1.8s cubic-bezier(0.34, 1.56, 0.64, 1); /* Water-like flow with slight bounce */
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .reveal-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.7s ease; /* More balanced fade-out */
+        }
+        
+        /* Circuit animation on the circle edge */
+        .circle-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(0, 120, 200, 0.5);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 120, 200, 0.6), 
+                        inset 0 0 20px rgba(0, 120, 200, 0.4);
+            z-index: 2;
+            opacity: 1;
+            transition: opacity 0.9s ease; /* More balanced fade-out */
+        }
+        
+        /* Active transition states */
+        body.transition-active .reveal-circle {
+            transform: translate(-50%, -50%) scale(50);
+        }
+        
+        body.transition-active .reveal-content {
+            opacity: 1;
+        }
+        
+        body.transition-active .circle-border {
+            opacity: 0;
+        }
+        
+        body.transition-active .cover-container {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        body.transition-complete .reveal-circle {
+            transition: none;
+            transform: translate(-50%, -50%) scale(100);
+        }
+        
+        body.transition-complete .index-container {
+            opacity: 1;
+            visibility: visible;
+            z-index: 20; /* Move to top after complete */
+        }
+
+        /* Animations */
+        @keyframes circuitMove {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.8);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+        }
+        
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0.2;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeOutUp {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-5px) translateX(-50%);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cover-title {
+                font-size: 2.5rem;
+            }
+            .cover-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="cover-container">
+        <div class="background-animation">
+            <div class="tech-overlay"></div>
+            <div class="circuit-lines">
+                <div class="circuit-line"></div>
+                <div class="circuit-line"></div>
+                <div class="circuit-line"></div>
+                <div class="circuit-line"></div>
+                <div class="circuit-line"></div>
+                <div class="circuit-line"></div>
+                <div class="circuit-line"></div>
+                <div class="circuit-line"></div>
+                <div class="circuit-dot"></div>
+                <div class="circuit-dot"></div>
+                <div class="circuit-dot"></div>
+                <div class="circuit-dot"></div>
+                <div class="circuit-dot"></div>
+                <div class="circuit-dot"></div>
+                <div class="circuit-branch"></div>
+                <div class="circuit-branch"></div>
+                <div class="circuit-branch"></div>
+            </div>
+        </div>
+        
+        <div class="cover-logo">Shakib's Portfolio</div>
+        <h1 class="cover-title">Full Stack Software Developer</h1>
+        <p class="cover-subtitle">Welcome to my digital universe—where lines of code become stories, challenges transform into innovations, and every project is a journey of solving complex problems with creative solutions.</p>
+
+        <div class="scroll-hint" id="scrollToContent">
+            Scroll Down
+            <i class="fas fa-arrow-down"></i>
+        </div>
+    </div>
+    
+    <!-- Circle reveal element -->
+    <div class="reveal-circle">
+        <div class="circle-border"></div>
+        <div class="reveal-content" id="revealContent">
+            <!-- This is where we'll load the index page content -->
+        </div>
+    </div>
+    
+    <!-- Index page container -->
+    <div class="index-container">
+        <iframe src="index-html.html" class="index-iframe" id="indexFrame"></iframe>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const body = document.body;
+            const scrollHint = document.getElementById('scrollToContent');
+            const revealCircle = document.querySelector('.reveal-circle');
+            const revealContent = document.getElementById('revealContent');
+            const indexFrame = document.getElementById('indexFrame');
+            const indexContainer = document.querySelector('.index-container');
+            let scrollDetected = false;
+            
+            // Preload the index page content
+            indexFrame.onload = function() {
+                // Create a clone of the index page content for the reveal effect
+                try {
+                    // Wait for iframe to load
+                    setTimeout(() => {
+                        // Create screenshot/copy of iframe content for the reveal
+                        const frameContent = indexFrame.contentDocument || indexFrame.contentWindow.document;
+                        if (frameContent) {
+                            // Using simplified approach - just copying background color
+                            revealContent.style.backgroundColor = '#0a0a0a'; // Same as your index.html background
+                        }
+                    }, 500);
+                } catch (e) {
+                    console.error('Could not access iframe content. This is likely due to cross-origin restrictions.');
+                    // Fallback - just use a dark background
+                    revealContent.style.backgroundColor = '#0a0a0a';
+                }
+            };
+            
+            // Function for smooth circle reveal transition
+            function circleRevealTransition() {
+                if (!scrollDetected) {
+                    scrollDetected = true;
+                    
+                    // Prepare the reveal content
+                    revealContent.style.opacity = '1';
+                    
+                    // Start the circle reveal animation
+                    body.classList.add('transition-active');
+                    
+                    // After the main animation completes, finalize the transition
+                    setTimeout(() => {
+                        body.classList.add('transition-complete');
+                        
+                        // Actually navigate to the index page after transition completes
+                        setTimeout(() => {
+                            window.location.href = 'index-html.html';
+                        }, 600); // More balanced delay before actual navigation
+                    }, 1800); // Adjusted to match the circle expansion time
+                }
+            }
+            
+            // Event Listeners
+            scrollHint.addEventListener('click', circleRevealTransition);
+            
+            // Mouse wheel scroll down
+            window.addEventListener('wheel', function(event) {
+                if (event.deltaY > 0) { // Scrolling down
+                    circleRevealTransition();
+                }
+            });
+            
+            // Touch events for mobile
+            let touchStartY = 0;
+            let touchEndY = 0;
+            
+            window.addEventListener('touchstart', function(event) {
+                touchStartY = event.touches[0].clientY;
+            });
+            
+            window.addEventListener('touchend', function(event) {
+                touchEndY = event.changedTouches[0].clientY;
+                
+                // If swiped down
+                if (touchStartY > touchEndY + 50) {
+                    circleRevealTransition();
+                }
+            });
+            
+            // Keyboard down arrow
+            window.addEventListener('keydown', function(event) {
+                if (event.key === 'ArrowDown' || event.key === 'PageDown') {
+                    circleRevealTransition();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

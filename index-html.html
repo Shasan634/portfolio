@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Developer Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <style>
+        /* Circuit Background Animation */
+        body {
+            background-color: #020c1b !important; /* Dark blue background */
+            position: relative;
+        }
+        
+        /* Background Animation */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #020c1b; /* Darker blue background */
+            opacity: 1;
+            overflow: hidden;
+        }
+        
+        /* Tech Background Elements */
+        .tech-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(13, 39, 80, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(13, 39, 80, 0.2) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.5;
+        }
+        
+        /* Enhanced Circuit Lines Animation */
+        .circuit-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .circuit-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(0, 120, 200, 0.4), transparent); /* Darker blue gradient */
+            height: 2px;
+            width: 100%;
+            animation: circuitMove 8s infinite linear;
+            opacity: 0;
+            box-shadow: 0 0 8px rgba(0, 100, 170, 0.6); /* Darker glow */
+        }
+        
+        .circuit-line:nth-child(1) {
+            top: 15%;
+            animation-duration: 7s;
+            animation-delay: 0s;
+        }
+        
+        .circuit-line:nth-child(2) {
+            top: 25%;
+            animation-duration: 10s;
+            animation-delay: 1s;
+        }
+        
+        .circuit-line:nth-child(3) {
+            top: 35%;
+            animation-duration: 12s;
+            animation-delay: 2s;
+        }
+        
+        .circuit-line:nth-child(4) {
+            top: 45%;
+            animation-duration: 9s;
+            animation-delay: 3s;
+        }
+        
+        .circuit-line:nth-child(5) {
+            top: 55%;
+            animation-duration: 11s;
+            animation-delay: 4s;
+        }
+        
+        .circuit-line:nth-child(6) {
+            top: 65%;
+            animation-duration: 8s;
+            animation-delay: 5s;
+        }
+        
+        .circuit-line:nth-child(7) {
+            top: 75%;
+            animation-duration: 13s;
+            animation-delay: 6s;
+        }
+        
+        .circuit-line:nth-child(8) {
+            top: 85%;
+            animation-duration: 7s;
+            animation-delay: 7s;
+        }
+        
+        .circuit-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: rgba(0, 120, 200, 0.6); /* Darker blue dot */
+            box-shadow: 0 0 10px rgba(0, 100, 170, 0.6); /* Darker glow */
+            animation: pulse 4s infinite;
+        }
+        
+        .circuit-dot:nth-child(9) {
+            top: 20%;
+            left: 30%;
+            animation-delay: 0s;
+        }
+        
+        .circuit-dot:nth-child(10) {
+            top: 70%;
+            left: 60%;
+            animation-delay: 1s;
+        }
+        
+        .circuit-dot:nth-child(11) {
+            top: 40%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+        
+        .circuit-dot:nth-child(12) {
+            top: 60%;
+            left: 20%;
+            animation-delay: 3s;
+        }
+        
+        .circuit-dot:nth-child(13) {
+            top: 30%;
+            left: 50%;
+            animation-delay: 2.5s;
+        }
+        
+        .circuit-dot:nth-child(14) {
+            top: 80%;
+            left: 40%;
+            animation-delay: 3.5s;
+        }
+        
+        .circuit-branch {
+            position: absolute;
+            background: rgba(0, 100, 170, 0.35); /* Darker blue branch */
+            height: 1px;
+            animation: fadeInOut 5s infinite;
+            box-shadow: 0 0 5px rgba(0, 100, 170, 0.5); /* Darker glow */
+        }
+        
+        .circuit-branch:nth-child(15) {
+            top: 25%;
+            left: 40%;
+            width: 100px;
+            transform: rotate(45deg);
+            animation-delay: 0.5s;
+        }
+        
+        .circuit-branch:nth-child(16) {
+            top: 65%;
+            left: 60%;
+            width: 120px;
+            transform: rotate(-30deg);
+            animation-delay: 1.5s;
+        }
+        
+        .circuit-branch:nth-child(17) {
+            top: 45%;
+            left: 25%;
+            width: 80px;
+            transform: rotate(60deg);
+            animation-delay: 2.5s;
+        }
+        
+        /* Enhance grid items to work with the background */
+        .grid-item {
+            background-color: rgba(13, 39, 80, 0.3) !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(5px) !important;
+            border: 1px solid rgba(0, 120, 200, 0.2) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .grid-item:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 6px 20px rgba(0, 100, 170, 0.3) !important;
+        }
+        
+        /* Enhance section titles */
+        .section-title {
+            color: #fff !important;
+            text-shadow: 0 0 10px rgba(0, 120, 200, 0.6) !important;
+        }
+        
+        /* Define animations directly in the HTML file */
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-5px) scale(1.05); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        
+        @keyframes circuitMove {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+        }
+        
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0.2;
+            }
+        }
+        
+        /* Center and position the skills title */
+        .skills .section-title {
+            text-align: center !important;
+            margin-bottom: 8px !important;
+            padding-top: 5px !important;
+        }
+        
+        /* Position the skills section at the top */
+        .skills {
+            display: flex !important;
+            flex-direction: column !important;
+            padding-top: 0 !important;
+        }
+        
+        /* Grid layout for skills */
+        .skills-container {
+            justify-content: flex-start !important;
+            align-items: flex-start !important;
+            padding: 8px !important;
+            margin-top: 0 !important;
+        }
+        
+        .skills-wheel {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)) !important;
+            grid-auto-rows: 55px !important;
+            grid-gap: 8px !important;
+            padding: 0 !important;
+            width: 100% !important;
+            align-content: start !important;
+            margin-top: 0 !important;
+        }
+        
+        .skill-item {
+            animation-name: float;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            position: relative !important;
+            width: 48px !important;
+            height: 48px !important;
+            margin: 0 auto !important;
+            place-self: center !important;
+        }
+        
+        .skill-item:nth-child(3n) { animation-delay: -0.6s; }
+        .skill-item:nth-child(3n+1) { animation-delay: -1.2s; }
+        .skill-item:nth-child(3n+2) { animation-delay: -1.8s; }
+        
+        /* Enhance skill icons with circuit-style glow */
+        .skill-item {
+            box-shadow: 0 0 15px rgba(0, 120, 200, 0.3) !important;
+        }
+        
+        .skill-item:hover {
+            box-shadow: 0 0 20px rgba(0, 120, 200, 0.5) !important;
+        }
+        
+        /* Enhance project links and interactive elements */
+        .hidden-link {
+            background-color: rgba(0, 120, 200, 0.2) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .hidden-link:hover {
+            background-color: rgba(0, 120, 200, 0.4) !important;
+        }
+        
+        /* Enhance timeline elements */
+        .timeline-dot {
+            background-color: rgba(0, 120, 200, 0.8) !important;
+            box-shadow: 0 0 10px rgba(0, 120, 200, 0.8) !important;
+        }
+        
+        .timeline-line {
+            background-color: rgba(0, 120, 200, 0.4) !important;
+        }
+        
+        /* Enhance social links */
+        .social-links a {
+            box-shadow: 0 0 10px rgba(0, 120, 200, 0.3) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .social-links a:hover {
+            box-shadow: 0 0 15px rgba(0, 120, 200, 0.5) !important;
+            transform: translateY(-3px) !important;
+        }
+
+
+        /* Enhanced grid items with more distinct borders */
+.grid-item {
+    background-color: rgba(13, 39, 80, 0.3) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(5px) !important;
+    border: 2px solid rgba(0, 140, 230, 0.4) !important; /* Brighter, thicker border */
+    transition: all 0.3s ease !important;
+    border-radius: 8px !important; /* Add rounded corners */
+    overflow: hidden !important; /* Ensure content respects the border radius */
+}
+
+.grid-item:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 25px rgba(0, 140, 230, 0.4) !important; /* Enhanced hover shadow */
+    border-color: rgba(0, 180, 255, 0.7) !important; /* Brighter border on hover */
+}
+
+/* Optional: Add a subtle glow effect to the borders */
+.grid-item {
+    position: relative !important;
+}
+
+.grid-item::after {
+    content: '';
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    box-shadow: inset 0 0 10px rgba(0, 140, 230, 0.2) !important; /* Inner glow */
+    border-radius: 8px !important;
+    pointer-events: none !important; /* Make sure it doesn't interfere with clicks */
+    z-index: 1 !important;
+}
+
+/* Create a subtle separator between grid items by adding margin */
+.grid-container {
+    grid-gap: 16px !important; /* Increase gap between grid items */
+}
+
+/* Add different border accent colors for different section types to enhance visual distinction */
+.grid-item.about {
+    border-color: rgba(60, 140, 255, 0.5) !important; /* Blue accent */
+}
+
+.grid-item.experience {
+    border-color: rgba(0, 180, 170, 0.5) !important; /* Teal accent */
+}
+
+.grid-item.skills {
+    border-color: rgba(100, 180, 255, 0.5) !important; /* Light blue accent */
+}
+
+.grid-item.education {
+    border-color: rgba(120, 100, 255, 0.5) !important; /* Purple accent */
+}
+
+.grid-item.projects {
+    border-color: rgba(0, 160, 130, 0.5) !important; /* Green accent */
+}
+
+.grid-item.certifications {
+    border-color: rgba(255, 120, 60, 0.5) !important; /* Orange accent */
+}
+
+.grid-item.hackathons {
+    border-color: rgba(200, 100, 255, 0.5) !important; /* Pink/purple accent */
+}
+
+/* Keep the same hover effect with the unique colors */
+.grid-item.about:hover {
+    border-color: rgba(60, 140, 255, 0.8) !important;
+}
+
+.grid-item.experience:hover {
+    border-color: rgba(0, 180, 170, 0.8) !important;
+}
+
+.grid-item.skills:hover {
+    border-color: rgba(100, 180, 255, 0.8) !important;
+}
+
+.grid-item.education:hover {
+    border-color: rgba(120, 100, 255, 0.8) !important;
+}
+
+.grid-item.projects:hover {
+    border-color: rgba(0, 160, 130, 0.8) !important;
+}
+
+.grid-item.certifications:hover {
+    border-color: rgba(255, 120, 60, 0.8) !important;
+}
+
+.grid-item.hackathons:hover {
+    border-color: rgba(200, 100, 255, 0.8) !important;
+}
+
+/* Optional: Add a subtle header bar to each grid item for even more distinction */
+.section-title {
+    border-bottom: 1px solid rgba(0, 140, 230, 0.3) !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 15px !important;
+    position: relative !important;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute !important;
+    bottom: -1px !important;
+    left: 0 !important;
+    width: 60px !important; /* Width of the indicator line */
+    height: 3px !important;
+    background-color: rgba(0, 140, 230, 0.7) !important;
+    border-radius: 3px !important;
+}
+    </style>
+</head>
+<body>
+    <!-- Circuit Background -->
+    <div class="background-animation">
+        <div class="tech-overlay"></div>
+        <div class="circuit-lines">
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-dot"></div>
+            <div class="circuit-dot"></div>
+            <div class="circuit-dot"></div>
+            <div class="circuit-dot"></div>
+            <div class="circuit-dot"></div>
+            <div class="circuit-dot"></div>
+            <div class="circuit-branch"></div>
+            <div class="circuit-branch"></div>
+            <div class="circuit-branch"></div>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <!-- Row 1 -->
+        <div class="grid-item experience">
+            <h2 class="section-title">Volunteering Experience</h2>
+            <div class="experience-list">
+                <!-- Experience 1 -->
+                <div class="experience-item">
+                    <div class="experience-date">Mar 2025 </div>
+                    <h3 class="experience-title">Exhibition Booth Assistance</h3>
+                    <div class="experience-company">Digital Offshore '25</div>
+                    <p class="experience-description">Provided technical and logistical support 
+                        to exhibitors from leading energy research, innovation, and technology organizations 
+                        including Energy NL and Tech NL. Facilitated smooth booth operations and ensured exhibitors could 
+                        effectively showcase their technologies and innovations.</p>
+                </div>
+                
+                
+            </div>
+        </div>
+        
+        <div class="grid-item about">
+            <img src="image.jpg" alt="Your Profile" class="profile-img">
+            <h1>Shakib Hasan</h1>
+            <p>Software Developer | Web Developer | Machine Learning</p>
+            <div class="social-links">
+                <a href="https://github.com/Shasan634" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/shakib-hasan-2250981b6/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="resume.pdf" target="_blank"><i class="far fa-file-alt"></i></a>
+            </div>
+        </div>
+        
+        <div class="grid-item experience">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="experience-list">
+                <!-- Experience 1 -->
+                <div class="experience-item">
+                    <div class="experience-date">September 2023 - Present</div>
+                    <h3 class="experience-title">Assistant Manager</h3>
+                    <div class="experience-company">Esso, St.John's, NL</div>
+                    <p class="experience-description">Managed day-to-day operations including inventory control,
+                         cash handling, and staff scheduling. Led a team of 8+ employees,
+                          improving store efficiency by implementing new training protocols.
+                           Resolved customer concerns while maintaining high satisfaction rates and 
+                           increasing monthly sales by 12%.</p>
+                </div>
+                
+                <!-- Experience 2 -->
+                <div class="experience-item">
+                    <div class="experience-date">Aug 2022 - June 2023</div>
+                    <h3 class="experience-title">Cashier</h3>
+                    <div class="experience-company">Circle K, St.John's, NL</div>
+                    <p class="experience-description">Handled cash transactions with 100% accuracy 
+                        while providing exceptional customer service in a fast-paced environment. 
+                        Managed inventory stocking and store maintenance tasks. Recognized for perfect 
+                        attendance and flexibility in covering shifts, contributing to team cohesion and
+                        operational efficiency.</p>
+                </div>
+                
+                <!-- Experience 3 -->
+                <div class="experience-item">
+                    <div class="experience-date">May 2022 - Sept 2022</div>
+                    <h3 class="experience-title">Cashier</h3>
+                    <div class="experience-company">McDonald's, St. John's, NL</div>
+                    <p class="experience-description">Operated POS systems and processed orders accurately during 
+                        high-volume periods. Maintained cleanliness standards while adhering to food safety protocols. 
+                        Collaborated with kitchen staff to ensure order fulfillment within time targets, contributing to 
+                        improved customer satisfaction scores.</p>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-date">Mar 2022 - Aug 2022</div>
+                    <h3 class="experience-title">Cashier</h3>
+                    <div class="experience-company">Walmart, St. John's, NL</div>
+                    <p class="experience-description">Handled diverse transactions accurately in a high-volume setting. 
+                        Assisted customers with product inquiries and locations. Supported inventory management and followed 
+                        loss prevention procedures.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Row 2 -->
+        <div class="grid-item certifications">
+            <h2 class="section-title">Certifications</h2>
+            <div class="certifications-list">
+                <div class="certification-item">
+                    <div class="certification-date">2025</div>
+                    <h3 class="certification-name">AWS Certified Cloud Practitioner Certification Course (CLF-C02)</h3>
+                    <div class="certification-issuer">Amazon Web Services</div>
+                </div>
+                
+                <div class="certification-item">
+                    <div class="certification-date">2024</div>
+                    <h3 class="certification-name">Professional Skills Development Program</h3>
+                    <div class="certification-issuer">Memorial University of Newfoundland</div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="grid-item skills">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-container">
+                <div class="skills-wheel">
+                    <!-- Languages -->
+                    <div class="skill-item">
+                        <i class="fab fa-java skill-icon" style="color: #007396;"></i>
+                        <span class="skill-name">Java</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-python skill-icon" style="color: #3776AB;"></i>
+                        <span class="skill-name">Python</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-database skill-icon" style="color: #336791;"></i>
+                        <span class="skill-name">SQL (PostgreSQL)</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-js-square skill-icon" style="color: #F7DF1E;"></i>
+                        <span class="skill-name">JavaScript</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-html5 skill-icon" style="color: #E44D26;"></i>
+                        <span class="skill-name">HTML5</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-css3-alt skill-icon" style="color: #264DE4;"></i>
+                        <span class="skill-name">CSS3</span>
+                    </div>
+                    
+                    <!-- Frameworks -->
+                    <div class="skill-item">
+                        <i class="fab fa-react skill-icon" style="color: #61DAFB;"></i>
+                        <span class="skill-name">React</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-node-js skill-icon" style="color: #339933;"></i>
+                        <span class="skill-name">Node.js</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-server skill-icon" style="color: #000000;"></i>
+                        <span class="skill-name">Express.js</span>
+                    </div>
+                    
+                    <!-- Developer Tools -->
+                    <div class="skill-item">
+                        <i class="fab fa-git-alt skill-icon" style="color: #F05032;"></i>
+                        <span class="skill-name">Git</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-code skill-icon" style="color: #5C2D91;"></i>
+                        <span class="skill-name">Visual Studio</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-file-code skill-icon" style="color: #21D789;"></i>
+                        <span class="skill-name">PyCharm</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-moon skill-icon" style="color: #2C2255;"></i>
+                        <span class="skill-name">Eclipse</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-book-open skill-icon" style="color: #F37726;"></i>
+                        <span class="skill-name">Jupyter Notebook</span>
+                    </div>
+                    
+                    <!-- Libraries -->
+                    <div class="skill-item">
+                        <i class="fas fa-table skill-icon" style="color: #150458;"></i>
+                        <span class="skill-name">Pandas</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-calculator skill-icon" style="color: #013243;"></i>
+                        <span class="skill-name">NumPy</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-chart-bar skill-icon" style="color: #11557C;"></i>
+                        <span class="skill-name">Matplotlib</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-window-restore skill-icon" style="color: #0D47A1;"></i>
+                        <span class="skill-name">Swing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-item education">
+            <h2 class="section-title">Education</h2>
+            <div class="education-list">
+                <!-- Education 1 -->
+                <div class="education-item">
+                    <div class="education-date">2021 - 2026</div>
+                    <h3 class="education-degree">Bachelor of Science in Computer Science</h3>
+                    <div class="education-institution">Memorial University of Newfoundland, St. John's</div>
+                    <p class="education-description">Grade Point Average: 3.77 • CS Cumulative Average: 84%</p>
+                </div>
+                
+                
+            </div>
+        </div>
+        
+        <!-- Row 3 -->
+        <div class="grid-item projects" id="personal-projects-tile">
+            <h2 class="section-title">Personal Projects</h2>
+            <p class="timeline-description">Click to view my personal projects in an interactive timeline</p>
+            <div class="timeline-preview">
+                <div class="timeline-dot"></div>
+                <div class="timeline-line"></div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-line"></div>
+                <div class="timeline-dot"></div>
+            </div>
+            <a href="personal-projects.html" class="hidden-link" id="personal-timeline-link">View Timeline</a>
+        </div>
+        
+        <div class="grid-item projects" id="course-projects-tile">
+            <h2 class="section-title">Course Projects</h2>
+            <p class="timeline-description">Click to view my academic projects in an interactive timeline</p>
+            <div class="timeline-preview">
+                <div class="timeline-dot"></div>
+                <div class="timeline-line"></div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-line"></div>
+                <div class="timeline-dot"></div>
+            </div>
+            <a href="course-projects.html" class="hidden-link" id="course-timeline-link">View Timeline</a>
+        </div>
+        
+        <div class="grid-item hackathons">
+            <h2 class="section-title">Hackathons</h2>
+            <div class="hackathons-list">
+                <div class="hackathon-item">
+                    <h3 class="hackathon-title">Econext Hackathon 2024</h3>
+                    <p class="hackathon-description">Collaborated in a team to develop a microturbine system that converts methane gas from landfill sites in Newfoundland into electricity, effectively reducing both carbon and methane emissions while generating sustainable power.</p>
+                    <a href="path/to/econext-solution.pdf" class="solution-link">View Solution Slides</a>
+                </div>
+                
+                <div class="hackathon-item">
+                    <h3 class="hackathon-title">Econext Hackathon 2023</h3>
+                    <p class="hackathon-description">Designed a smart meter solution that automatically optimizes and reduces electricity usage during peak hours, helping to balance grid demand and reduce energy costs for consumers while promoting sustainable consumption patterns.</p>
+                    <a href="path/to/munhacks-solution.pdf" class="solution-link">View Solution Slides</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
