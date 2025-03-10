@@ -1,0 +1,699 @@
+.skill-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.2) translateY(-5px);
+    z-index: 10;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.skill-item:hover .skill-icon {
+    transform: scale(1.1);
+}
+
+.skill-item:hover .skill-name {
+    opacity: 1;
+}.ripple {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Add particles to skills section for depth */
+.skills-container::before,
+.skills-container::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0.5px, transparent 1px),
+        radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.2) 0.5px, transparent 1px),
+        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.2) 0.5px, transparent 1px),
+        radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.2) 0.5px, transparent 1px);
+    background-size: 100px 100px;
+    background-position: 0 0, 0 0, 0 0, 0 0;
+    animation: particles-animation 15s infinite linear;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.skills-container::after {
+    background-image: 
+        radial-gradient(circle at 60% 30%, rgba(77, 213, 153, 0.3) 0.5px, transparent 1px),
+        radial-gradient(circle at 20% 60%, rgba(77, 133, 213, 0.3) 0.5px, transparent 1px),
+        radial-gradient(circle at 70% 70%, rgba(213, 77, 77, 0.3) 0.5px, transparent 1px),
+        radial-gradient(circle at 30% 20%, rgba(213, 166, 77, 0.3) 0.5px, transparent 1px);
+    background-size: 80px 80px;
+    animation-direction: reverse;
+    animation-duration: 20s;
+}
+
+@keyframes particles-animation {
+    from {
+        background-position: 0 0, 0 0, 0 0, 0 0;
+    }
+    to {
+        background-position: 100px 100px, 100px 100px, 100px 100px, 100px 100px;
+    }
+}/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background-color: #0a0a0a;
+    color: #fff;
+    height: 100vh;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    transition: opacity 0.3s;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+/* Grid Layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    height: 100vh;
+    gap: 1px;
+    background-color: rgba(255, 255, 255, 0.1); /* This creates the thin dividing lines */
+}
+
+.grid-item {
+    background-color: #0a0a0a;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-item:hover {
+    background-color: #111;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+/* About section */
+.about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.about h1 {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+}
+
+.about p {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-bottom: 15px;
+}
+
+.social-links {
+    display: flex;
+    gap: 10px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    font-size: 0.9rem;
+}
+
+/* Skills section */
+.skills {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.skills-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    position: relative;
+}
+
+.skills-wheel {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    transform-style: preserve-3d;
+    animation: spin 30s infinite linear;
+    /* Fixed position with 20deg tilt for better visibility */
+    transform: rotateX(20deg);
+}
+
+.skill-item {
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    /* Remove backface-visibility so icons show from all angles */
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.skill-item:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.1) translateZ(10px);
+}
+
+.skill-icon {
+    font-size: 1.1rem;
+    margin-bottom: 1px;
+}
+
+.skill-name {
+    font-size: 0.52rem;
+    font-weight: 500;
+}
+
+/* Football-like pattern: hexagons and pentagons */
+/* Main vertices of an icosahedron (soccer ball/football pattern) */
+
+/* Vertex group 1 - Top */
+.skill-item:nth-child(1) { transform: translateY(-100px) translateZ(0); }
+
+/* Vertex group 2 - Upper ring (5 vertices evenly spaced) */
+.skill-item:nth-child(2) { transform: translateY(-60px) translateX(57px) translateZ(57px); }
+.skill-item:nth-child(3) { transform: translateY(-60px) translateX(-57px) translateZ(57px); }
+.skill-item:nth-child(4) { transform: translateY(-60px) translateX(-57px) translateZ(-57px); }
+.skill-item:nth-child(5) { transform: translateY(-60px) translateX(57px) translateZ(-57px); }
+.skill-item:nth-child(6) { transform: translateY(-60px) translateX(80px) translateZ(0); }
+
+/* Vertex group 3 - Equator (10 vertices evenly spaced) */
+.skill-item:nth-child(7) { transform: translateX(100px) translateZ(0); }
+.skill-item:nth-child(8) { transform: translateX(70px) translateZ(70px); }
+.skill-item:nth-child(9) { transform: translateX(0) translateZ(100px); } 
+.skill-item:nth-child(10) { transform: translateX(-70px) translateZ(70px); }
+.skill-item:nth-child(11) { transform: translateX(-100px) translateZ(0); }
+.skill-item:nth-child(12) { transform: translateX(-70px) translateZ(-70px); }
+.skill-item:nth-child(13) { transform: translateX(0) translateZ(-100px); }
+.skill-item:nth-child(14) { transform: translateX(70px) translateZ(-70px); }
+
+/* Vertex group 4 - Lower ring (5 vertices evenly spaced) */
+.skill-item:nth-child(15) { transform: translateY(60px) translateX(57px) translateZ(57px); }
+.skill-item:nth-child(16) { transform: translateY(60px) translateX(-57px) translateZ(57px); }
+.skill-item:nth-child(17) { transform: translateY(60px) translateX(-57px) translateZ(-57px); }
+.skill-item:nth-child(18) { transform: translateY(60px) translateX(57px) translateZ(-57px); }
+.skill-item:nth-child(19) { transform: translateY(60px) translateX(80px) translateZ(0); }
+
+/* Vertex group 5 - Bottom */
+.skill-item:nth-child(20) { transform: translateY(100px) translateZ(0); }
+
+/* Additional faces for more skills */
+.skill-item:nth-child(21) { transform: translateY(-30px) translateX(87px) translateZ(30px); }
+.skill-item:nth-child(22) { transform: translateY(-30px) translateX(-87px) translateZ(30px); }
+.skill-item:nth-child(23) { transform: translateY(-30px) translateX(0) translateZ(-90px); }
+.skill-item:nth-child(24) { transform: translateY(30px) translateX(0) translateZ(90px); }
+.skill-item:nth-child(25) { transform: translateY(30px) translateX(87px) translateZ(-30px); }
+.skill-item:nth-child(26) { transform: translateY(30px) translateX(-87px) translateZ(-30px); }
+
+@keyframes float {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-5px) scale(1.05);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Apply different animation delays to create natural flow */
+.skill-item:nth-child(3n) {
+    animation-delay: -0.6s;
+}
+
+.skill-item:nth-child(3n+1) {
+    animation-delay: -1.2s;
+}
+
+.skill-item:nth-child(3n+2) {
+    animation-delay: -1.8s;
+}
+
+/* Apply different glow colors to each skill */
+.skill-item:nth-child(5n) {
+    box-shadow: 0 0 15px rgba(77, 213, 153, 0.2);
+}
+
+.skill-item:nth-child(5n+1) {
+    box-shadow: 0 0 15px rgba(77, 133, 213, 0.2);
+}
+
+.skill-item:nth-child(5n+2) {
+    box-shadow: 0 0 15px rgba(213, 77, 77, 0.2);
+}
+
+.skill-item:nth-child(5n+3) {
+    box-shadow: 0 0 15px rgba(213, 166, 77, 0.2);
+}
+
+.skill-item:nth-child(5n+4) {
+    box-shadow: 0 0 15px rgba(175, 77, 213, 0.2);
+}
+
+/* Experience section */
+.experience {
+    display: flex;
+    flex-direction: column;
+}
+
+.experience-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.experience-list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.experience-list::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.experience-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.experience-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.experience-date {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 5px;
+}
+
+.experience-title {
+    font-size: 0.9rem;
+    margin-bottom: 3px;
+}
+
+.experience-company {
+    font-size: 0.8rem;
+    font-style: italic;
+    opacity: 0.7;
+    margin-bottom: 5px;
+}
+
+.experience-description {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+/* Certifications section */
+.certifications {
+    display: flex;
+    flex-direction: column;
+}
+
+.certifications-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.certifications-list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.certifications-list::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.certification-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.certification-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.certification-date {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 5px;
+}
+
+.certification-name {
+    font-size: 0.9rem;
+    margin-bottom: 3px;
+}
+
+.certification-issuer {
+    font-size: 0.8rem;
+    font-style: italic;
+    opacity: 0.7;
+}
+
+/* Projects section */
+.projects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.timeline-description {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-bottom: 25px;
+}
+
+.timeline-preview {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.timeline-dot {
+    width: 12px;
+    height: 12px;
+    background-color: #0d6efd;
+    border-radius: 50%;
+}
+
+.timeline-line {
+    width: 40px;
+    height: 2px;
+    background-color: rgba(13, 110, 253, 0.5);
+}
+
+.hidden-link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    opacity: 0;
+}
+
+.projects:hover {
+    background-color: #111;
+    transform: scale(0.98);
+}
+
+/* Featured Projects section */
+.featured-projects {
+    display: flex;
+    flex-direction: column;
+}
+
+.featured-projects-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.featured-projects-list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.featured-projects-list::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.featured-project-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.featured-project-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.featured-project-title {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.featured-project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.featured-project-tag {
+    padding: 2px 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    font-size: 0.65rem;
+}
+
+.featured-project-description {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+/* Education section */
+.education {
+    display: flex;
+    flex-direction: column;
+}
+
+.education-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.education-list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.education-list::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.education-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.education-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.education-date {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 5px;
+}
+
+.education-degree {
+    font-size: 0.9rem;}
+
+
+/* Education section */
+.education {
+    display: flex;
+    flex-direction: column;
+}
+
+.education-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.education-list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.education-list::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.education-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.education-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: translateX(5px);
+}
+
+.education-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.education-date {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 5px;
+}
+
+.education-degree {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.education-institution {
+    font-size: 0.8rem;
+    font-style: italic;
+    opacity: 0.7;
+    margin-bottom: 5px;
+}
+
+.education-description {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    line-height: 1.4;
+}
+
+/* Add subtle highlight for GPA information */
+.education-description strong {
+    color: #0d6efd;
+    font-weight: 600;
+}
+
+/* Hackathons section */
+.hackathons {
+    display: flex;
+    flex-direction: column;
+}
+
+.hackathons-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.hackathons-list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.hackathons-list::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.hackathon-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.hackathon-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: translateX(5px);
+}
+
+.hackathon-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.hackathon-title {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.hackathon-description {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    opacity: 0.8;
+    margin-bottom: 8px;
+}
+
+.solution-link {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 5px 12px;
+    background-color: rgba(13, 110, 253, 0.15);
+    color: #0d6efd;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.solution-link:hover {
+    background-color: rgba(13, 110, 253, 0.25);
+    transform: translateY(-2px);
+}
+
